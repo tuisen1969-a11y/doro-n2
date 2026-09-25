@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tello Controller</string>
+    <string name="connect">接続</string>
+    <string name="disconnect">切断</string>
+    <string name="takeoff">離陸</string>
+    <string name="land">着陸</string>
+    <string name="emergency">非常停止</string>
+    <string name="forward">前</string>
+    <string name="back">後</string>
+    <string name="left">左</string>
+    <string name="right">右</string>
+    <string name="up">上</string>
+    <string name="down">下</string>
+    <string name="yaw_left">左回転</string>
+    <string name="yaw_right">右回転</string>
+    <string name="screenshot">撮影</string>
+    <string name="record_start">録画開始</string>
+    <string name="record_stop">録画停止</string>
+    <string name="disconnected">未接続</string>
+    <string name="no_signal">映像待機中…</string>
+</resources>
