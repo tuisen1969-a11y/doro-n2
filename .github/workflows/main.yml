@@ -24,10 +24,28 @@ jobs:
           gradle-version: '8.9'
 
       - name: Build debug APK
-        run: gradle assembleDebug --no-daemon
+        shell: bash
+        run: |
+          # Detect the build root (directory containing the settings file),
+          # supporting both "project at repo root" and "project in a subfolder".
+          if [ -f settings.gradle.kts ] || [ -f settings.gradle ]; then
+            BUILD_ROOT="."
+          else
+            FOUND=$(find . -maxdepth 4 \( -name "settings.gradle.kts" -o -name "settings.gradle" \) -not -path "*/node_modules/*" | head -n 1)
+            if [ -z "$FOUND" ]; then
+              echo "::error::settings.gradle(.kts) not found anywhere in the repository"
+              ls -la
+              exit 1
+            fi
+            BUILD_ROOT=$(dirname "$FOUND")
+          fi
+          echo "Using build root: $BUILD_ROOT"
+          cd "$BUILD_ROOT"
+          gradle assembleDebug --no-daemon
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: Tello-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: "**/app/build/outputs/apk/debug/app-debug.apk"
+          if-no-files-found: error
